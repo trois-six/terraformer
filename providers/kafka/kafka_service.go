@@ -15,16 +15,20 @@
 package kafka
 
 import (
+	"strings"
+
 	"github.com/GoogleCloudPlatform/terraformer/terraform_utils"
+	"github.com/Mongey/terraform-provider-kafka/kafka"
 )
 
 type KafkaService struct {
 	terraform_utils.Service
 }
 
-func (s *KafkaService) createClient() interface{} {
-	config := &Config{
-		BootstrapServers: s.Args["bootstrap_servers"].(string),
+func (s *KafkaService) createClient() (*kafka.Client, error) {
+	bootstrapServers := strings.Split(s.Args["bootstrap_servers"].(string), ",")
+	config := &kafka.Config{
+		BootstrapServers: &bootstrapServers,
 		CACert:           s.Args["ca_cert"].(string),
 		ClientCert:       s.Args["client_cert"].(string),
 		ClientCertKey:    s.Args["client_key"].(string),
@@ -35,5 +39,5 @@ func (s *KafkaService) createClient() interface{} {
 		TLSEnabled:       s.Args["tls_enabled"].(bool),
 		Timeout:          s.Args["tls_enabled"].(int),
 	}
-	return NewClient(config)
+	return kafka.NewClient(config)
 }
