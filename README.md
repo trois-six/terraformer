@@ -39,6 +39,7 @@ A CLI tool that generates `tf` and `tfstate` files based on existing infrastruct
         * [Datadog](#use-with-datadog)
         * [New Relic](#use-with-new-relic)
     * Community
+        * [Kafka](#use-with-kafka)
         * [Logz.io](#use-with-logzio)
         * [Commercetools](#use-with-commercetools)
 - [Contributing](#contributing)
@@ -196,6 +197,7 @@ Links to download Terraform Providers:
     * Datadog provider >2.1.0 - [here](https://releases.hashicorp.com/terraform-provider-datadog/)
     * New Relic provider >1.5.0 - [here](https://releases.hashicorp.com/terraform-provider-newrelic/)
 * Community
+    * Kafka provider >=0.2.2 - [here](https://github.com/Mongey/terraform-provider-kafka/releases/)
     * Logz.io provider >=1.1.1 - [here](https://github.com/jonboydell/logzio_terraform_provider/)
     * Commercetools provider >= 0.19.0 - [here](https://github.com/labd/terraform-provider-commercetools)
 
@@ -952,6 +954,31 @@ List of supported New Relic resources:
 *   `synthetics`
     * `newrelic_synthetics_monitor`
     * `newrelic_synthetics_alert_condition`
+
+### Use with Kafka
+
+Example:
+
+```
+KAFKA_BOOTSTRAP_SERVERS=[KAFKA_BOOTSTRAP_SERVERS]
+KAFKA_CA_CERT=[KAFKA_CA_CERT]
+KAFKA_CLIENT_CERT=[KAFKA_CLIENT_CERT]
+KAFKA_CLIENT_KEY=[KAFKA_CLIENT_KEY]
+KAFKA_SASL_USERNAME=[KAFKA_SASL_USERNAME]
+KAFKA_SASL_PASSWORD=[KAFKA_SASL_PASSWORD]
+KAFKA_SASL_MECHANISM=[KAFKA_SASL_MECHANISM]
+KAFKA_SKIP_VERIFY=[KAFKA_SKIP_VERIFY]
+KAFKA_ENABLE_TLS=[KAFKA_ENABLE_TLS]
+KAFKA_TIMEOUT=[KAFKA_TIMEOUT]
+./terraformer import kafka -r topics,acls
+```
+
+List of supported New Relic resources:
+
+*   `topics`
+    * `kafka_topic`
+*   `acls`
+    * `kafka_acl`
 
 ### Use with Logz.io
 
