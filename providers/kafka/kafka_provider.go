@@ -17,14 +17,15 @@ package kafka
 import (
 	"errors"
 	"strconv"
+	"strings"
 
 	"github.com/GoogleCloudPlatform/terraformer/terraform_utils"
 	"github.com/GoogleCloudPlatform/terraformer/terraform_utils/provider_wrapper"
 	"github.com/zclconf/go-cty/cty"
+	"github.com/zclconf/go-cty/cty/gocty"
 )
 
-type KafkaProvider struct {
-	terraform_utils.Provider
+type kafkaConfig struct {
 	bootstrapServers string
 	caCert           string
 	clientCert       string
@@ -36,18 +37,22 @@ type KafkaProvider struct {
 	tlsEnabled       bool
 	timeout          int
 }
+type KafkaProvider struct {
+	terraform_utils.Provider
+	config kafkaConfig
+}
 
 func (p *KafkaProvider) Init(args []string) error {
-	p.bootstrapServers = args[0]
-	p.caCert = args[1]
-	p.clientCert = args[2]
-	p.clientCertKey = args[3]
-	p.saslUsername = args[4]
-	p.saslPassword = args[5]
-	p.saslMechanism = args[6]
-	p.skipTLSVerify, _ = strconv.ParseBool(args[7])
-	p.tlsEnabled, _ = strconv.ParseBool(args[8])
-	p.timeout, _ = strconv.Atoi(args[9])
+	p.config.bootstrapServers = args[0] //strings.Split(args[0], ",")
+	p.config.caCert = args[1]
+	p.config.clientCert = args[2]
+	p.config.clientCertKey = args[3]
+	p.config.saslUsername = args[4]
+	p.config.saslPassword = args[5]
+	p.config.saslMechanism = args[6]
+	p.config.skipTLSVerify, _ = strconv.ParseBool(args[7])
+	p.config.tlsEnabled, _ = strconv.ParseBool(args[8])
+	p.config.timeout, _ = strconv.Atoi(args[9])
 	return nil
 }
 
@@ -66,18 +71,24 @@ func (p *KafkaProvider) GetProviderData(arg ...string) map[string]interface{} {
 }
 
 func (p *KafkaProvider) GetConfig() cty.Value {
-	return cty.ObjectVal(map[string]cty.Value{
-		"bootstrap_servers": cty.StringVal(p.bootstrapServers),
-		"ca_cert":           cty.StringVal(p.caCert),
-		"client_cert":       cty.StringVal(p.clientCert),
-		"client_key":        cty.StringVal(p.clientCertKey),
-		"sasl_username":     cty.StringVal(p.saslUsername),
-		"sasl_password":     cty.StringVal(p.saslPassword),
-		"sasl_mechanism":    cty.StringVal(p.saslMechanism),
-		"skip_tls_verify":   cty.BoolVal(p.skipTLSVerify),
-		"tls_enabled":       cty.BoolVal(p.tlsEnabled),
-		"timeout":           cty.NumberIntVal(int64(p.timeout)),
+
+	bootstrap, err := gocty.ToCtyValue(strings.Split(p.config.bootstrapServers, ","), cty.List(cty.String))
+	if err != nil {
+		panic(err)
+	}
+	config := cty.ObjectVal(map[string]cty.Value{
+		"bootstrap_servers": bootstrap,
+		"ca_cert":           cty.StringVal(p.config.caCert),
+		"client_cert":       cty.StringVal(p.config.clientCert),
+		"client_key":        cty.StringVal(p.config.clientCertKey),
+		"sasl_username":     cty.StringVal(p.config.saslUsername),
+		"sasl_password":     cty.StringVal(p.config.saslPassword),
+		"sasl_mechanism":    cty.StringVal(p.config.saslMechanism),
+		"skip_tls_verify":   cty.BoolVal(p.config.skipTLSVerify),
+		"tls_enabled":       cty.BoolVal(p.config.tlsEnabled),
+		"timeout":           cty.NumberIntVal(int64(p.config.timeout)),
 	})
+	return config
 }
 
 func (p *KafkaProvider) GetBasicConfig() cty.Value {
@@ -94,16 +105,16 @@ func (p *KafkaProvider) InitService(serviceName string, verbose bool) error {
 	p.Service.SetVerbose(verbose)
 	p.Service.SetProviderName(p.GetName())
 	p.Service.SetArgs(map[string]interface{}{
-		"bootstrap_servers": p.bootstrapServers,
-		"ca_cert":           p.caCert,
-		"client_cert":       p.clientCert,
-		"client_key":        p.clientCertKey,
-		"sasl_username":     p.saslUsername,
-		"sasl_password":     p.saslPassword,
-		"sasl_mechanism":    p.saslMechanism,
-		"skip_tls_verify":   p.skipTLSVerify,
-		"tls_enabled":       p.tlsEnabled,
-		"timeout":           p.timeout,
+		"bootstrap_servers": p.config.bootstrapServers,
+		"ca_cert":           p.config.caCert,
+		"client_cert":       p.config.clientCert,
+		"client_key":        p.config.clientCertKey,
+		"sasl_username":     p.config.saslUsername,
+		"sasl_password":     p.config.saslPassword,
+		"sasl_mechanism":    p.config.saslMechanism,
+		"skip_tls_verify":   p.config.skipTLSVerify,
+		"tls_enabled":       p.config.tlsEnabled,
+		"timeout":           p.config.timeout,
 	})
 	return nil
 }

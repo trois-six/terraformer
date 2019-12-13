@@ -16,33 +16,27 @@ package kafka
 
 import (
 	"fmt"
+	"log"
+	"strings"
 
 	"github.com/GoogleCloudPlatform/terraformer/terraform_utils"
+	"github.com/Shopify/sarama"
 )
 
 type TopicGenerator struct {
 	KafkaService
 }
 
-type Topic struct {
-	Name              string
-	Partitions        int32
-	ReplicationFactor int16
-	Config            map[string]*string
-}
-
-type Topics []Topic
-
 var TopicAllowEmptyValues = []string{}
 
-func (g TopicGenerator) createResources(topics Topics) []terraform_utils.Resource {
+func (g TopicGenerator) createResources(topics []string) []terraform_utils.Resource {
 	var resources []terraform_utils.Resource
 	for _, topic := range topics {
 		resources = append(resources, terraform_utils.NewSimpleResource(
-			topic.Name,
-			fmt.Sprintf("topic_%s", normalizeResourceName(topic.Name)),
-			"kafka_topic",
-			"kafka",
+			topic, //ID
+			fmt.Sprintf("topic_%s", normalizeResourceName(topic)), //resourceName
+			"kafka_topic", //resourceType
+			"kafka",       //provider
 			TopicAllowEmptyValues,
 		))
 	}
@@ -50,9 +44,20 @@ func (g TopicGenerator) createResources(topics Topics) []terraform_utils.Resourc
 }
 
 func (g *TopicGenerator) InitResources() error {
-	var topics Topics
-	/* TODO
-	 */
+	var topics []string
+
+	bootstrapServers := strings.Split(g.Args["bootstrap_servers"].(string), ",")
+	config := sarama.NewConfig()
+	config.Version = sarama.V2_1_0_0
+	admin, err := sarama.NewClusterAdmin(bootstrapServers, config)
+	if err != nil {
+		log.Fatal("Error while creating cluster admin: ", err.Error())
+	}
+	defer func() { _ = admin.Close() }()
+	topicslist, _ := admin.ListTopics()
+	for topic := range topicslist {
+		topics = append(topics, topic)
+	}
 	g.Resources = g.createResources(topics)
 	return nil
 }

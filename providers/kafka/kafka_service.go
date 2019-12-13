@@ -15,29 +15,42 @@
 package kafka
 
 import (
-	"strings"
-
 	"github.com/GoogleCloudPlatform/terraformer/terraform_utils"
-	"github.com/Mongey/terraform-provider-kafka/kafka"
+//	"github.com/Mongey/terraform-provider-kafka/kafka"
+//	"github.com/Shopify/sarama"
+//	"strings"
 )
+
+type Config struct {
+	BootstrapServers *[]string
+	Timeout          int
+	CACertFile       string
+	ClientCertFile   string
+	ClientCertKey    string
+	TLSEnabled       bool
+	SkipTLSVerify    bool
+	SASLUsername     string
+	SASLPassword     string
+	SASLMechanism    string
+}
 
 type KafkaService struct {
 	terraform_utils.Service
 }
 
-func (s *KafkaService) createClient() (*kafka.Client, error) {
-	bootstrapServers := strings.Split(s.Args["bootstrap_servers"].(string), ",")
-	config := &kafka.Config{
-		BootstrapServers: &bootstrapServers,
-		CACert:           s.Args["ca_cert"].(string),
-		ClientCert:       s.Args["client_cert"].(string),
-		ClientCertKey:    s.Args["client_key"].(string),
-		SkipTLSVerify:    s.Args["skip_tls_verify"].(bool),
-		SASLUsername:     s.Args["sasl_username"].(string),
-		SASLPassword:     s.Args["sasl_password"].(string),
-		SASLMechanism:    s.Args["sasl_mechanism"].(string),
-		TLSEnabled:       s.Args["tls_enabled"].(bool),
-		Timeout:          s.Args["tls_enabled"].(int),
-	}
-	return kafka.NewClient(config)
-}
+// func (s *KafkaService) kafkaConfig() (*sarama.Config, error) {
+// 	bootstrapServers := strings.Split(s.Args["bootstrap_servers"].(string), ",")
+// 	config := Config{
+// 		BootstrapServers: &bootstrapServers,
+// 		CACertFile:       s.Args["ca_cert"].(string),
+// 		ClientCertFile:   s.Args["client_cert"].(string),
+// 		ClientCertKey:    s.Args["client_key"].(string),
+// 		SkipTLSVerify:    s.Args["skip_tls_verify"].(bool),
+// 		SASLUsername:     s.Args["sasl_username"].(string),
+// 		SASLPassword:     s.Args["sasl_password"].(string),
+// 		SASLMechanism:    s.Args["sasl_mechanism"].(string),
+// 		TLSEnabled:       s.Args["tls_enabled"].(bool),
+// 		Timeout:          s.Args["tls_enabled"].(int),
+// 	}
+// 	//return kafka.NewKafkaConfig(config)
+// }
