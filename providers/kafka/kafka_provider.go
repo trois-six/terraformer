@@ -16,6 +16,7 @@ package kafka
 
 import (
 	"errors"
+	"log"
 	"strconv"
 	"strings"
 
@@ -26,16 +27,16 @@ import (
 )
 
 type kafkaConfig struct {
-	bootstrapServers string
-	caCert           string
-	clientCert       string
-	clientCertKey    string
-	saslUsername     string
-	saslPassword     string
-	saslMechanism    string
-	skipTLSVerify    bool
-	tlsEnabled       bool
-	timeout          int
+	BootstrapServers string
+	CACert           string
+	ClientCert       string
+	ClientCertKey    string
+	SASLUsername     string
+	SASLPassword     string
+	SASLMechanism    string
+	SkipTLSVerify    bool
+	TLSEnabled       bool
+	Timeout          int
 }
 type KafkaProvider struct {
 	terraform_utils.Provider
@@ -43,16 +44,16 @@ type KafkaProvider struct {
 }
 
 func (p *KafkaProvider) Init(args []string) error {
-	p.config.bootstrapServers = args[0] //strings.Split(args[0], ",")
-	p.config.caCert = args[1]
-	p.config.clientCert = args[2]
-	p.config.clientCertKey = args[3]
-	p.config.saslUsername = args[4]
-	p.config.saslPassword = args[5]
-	p.config.saslMechanism = args[6]
-	p.config.skipTLSVerify, _ = strconv.ParseBool(args[7])
-	p.config.tlsEnabled, _ = strconv.ParseBool(args[8])
-	p.config.timeout, _ = strconv.Atoi(args[9])
+	p.config.BootstrapServers = args[0] //strings.Split(args[0], ",")
+	p.config.CACert = args[1]
+	p.config.ClientCert = args[2]
+	p.config.ClientCertKey = args[3]
+	p.config.SASLUsername = args[4]
+	p.config.SASLPassword = args[5]
+	p.config.SASLMechanism = args[6]
+	p.config.SkipTLSVerify, _ = strconv.ParseBool(args[7])
+	p.config.TLSEnabled, _ = strconv.ParseBool(args[8])
+	p.config.Timeout, _ = strconv.Atoi(args[9])
 	return nil
 }
 
@@ -72,21 +73,21 @@ func (p *KafkaProvider) GetProviderData(arg ...string) map[string]interface{} {
 
 func (p *KafkaProvider) GetConfig() cty.Value {
 
-	bootstrap, err := gocty.ToCtyValue(strings.Split(p.config.bootstrapServers, ","), cty.List(cty.String))
+	bootstrap, err := gocty.ToCtyValue(strings.Split(p.config.BootstrapServers, ","), cty.List(cty.String))
 	if err != nil {
-		panic(err)
+		log.Fatal("Cannot convert BootstrapServers to slice: ", err.Error())
 	}
 	config := cty.ObjectVal(map[string]cty.Value{
 		"bootstrap_servers": bootstrap,
-		"ca_cert":           cty.StringVal(p.config.caCert),
-		"client_cert":       cty.StringVal(p.config.clientCert),
-		"client_key":        cty.StringVal(p.config.clientCertKey),
-		"sasl_username":     cty.StringVal(p.config.saslUsername),
-		"sasl_password":     cty.StringVal(p.config.saslPassword),
-		"sasl_mechanism":    cty.StringVal(p.config.saslMechanism),
-		"skip_tls_verify":   cty.BoolVal(p.config.skipTLSVerify),
-		"tls_enabled":       cty.BoolVal(p.config.tlsEnabled),
-		"timeout":           cty.NumberIntVal(int64(p.config.timeout)),
+		"ca_cert":           cty.StringVal(p.config.CACert),
+		"client_cert":       cty.StringVal(p.config.ClientCert),
+		"client_key":        cty.StringVal(p.config.ClientCertKey),
+		"sasl_username":     cty.StringVal(p.config.SASLUsername),
+		"sasl_password":     cty.StringVal(p.config.SASLPassword),
+		"sasl_mechanism":    cty.StringVal(p.config.SASLMechanism),
+		"skip_tls_verify":   cty.BoolVal(p.config.SkipTLSVerify),
+		"tls_enabled":       cty.BoolVal(p.config.TLSEnabled),
+		"timeout":           cty.NumberIntVal(int64(p.config.Timeout)),
 	})
 	return config
 }
@@ -105,16 +106,16 @@ func (p *KafkaProvider) InitService(serviceName string, verbose bool) error {
 	p.Service.SetVerbose(verbose)
 	p.Service.SetProviderName(p.GetName())
 	p.Service.SetArgs(map[string]interface{}{
-		"bootstrap_servers": p.config.bootstrapServers,
-		"ca_cert":           p.config.caCert,
-		"client_cert":       p.config.clientCert,
-		"client_key":        p.config.clientCertKey,
-		"sasl_username":     p.config.saslUsername,
-		"sasl_password":     p.config.saslPassword,
-		"sasl_mechanism":    p.config.saslMechanism,
-		"skip_tls_verify":   p.config.skipTLSVerify,
-		"tls_enabled":       p.config.tlsEnabled,
-		"timeout":           p.config.timeout,
+		"bootstrap_servers": p.config.BootstrapServers,
+		"ca_cert":           p.config.CACert,
+		"client_cert":       p.config.ClientCert,
+		"client_key":        p.config.ClientCertKey,
+		"sasl_username":     p.config.SASLUsername,
+		"sasl_password":     p.config.SASLPassword,
+		"sasl_mechanism":    p.config.SASLMechanism,
+		"skip_tls_verify":   p.config.SkipTLSVerify,
+		"tls_enabled":       p.config.TLSEnabled,
+		"timeout":           p.config.Timeout,
 	})
 	return nil
 }

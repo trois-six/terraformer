@@ -15,10 +15,9 @@
 package cmd
 
 import (
-	// "errors"
 	"fmt"
 	"os"
-	// "strconv"
+
 	kafka_terraforming "github.com/GoogleCloudPlatform/terraformer/providers/kafka"
 
 	"github.com/GoogleCloudPlatform/terraformer/terraform_utils"

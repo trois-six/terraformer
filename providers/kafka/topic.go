@@ -33,10 +33,10 @@ func (g TopicGenerator) createResources(topics []string) []terraform_utils.Resou
 	var resources []terraform_utils.Resource
 	for _, topic := range topics {
 		resources = append(resources, terraform_utils.NewSimpleResource(
-			topic, //ID
-			fmt.Sprintf("topic_%s", normalizeResourceName(topic)), //resourceName
-			"kafka_topic", //resourceType
-			"kafka",       //provider
+			topic,
+			fmt.Sprintf("topic_%s", normalizeResourceName(topic)),
+			"kafka_topic",
+			"kafka",
 			TopicAllowEmptyValues,
 		))
 	}
@@ -45,11 +45,14 @@ func (g TopicGenerator) createResources(topics []string) []terraform_utils.Resou
 
 func (g *TopicGenerator) InitResources() error {
 	var topics []string
+	var config kafkaConfig
 
 	bootstrapServers := strings.Split(g.Args["bootstrap_servers"].(string), ",")
-	config := sarama.NewConfig()
-	config.Version = sarama.V2_1_0_0
-	admin, err := sarama.NewClusterAdmin(bootstrapServers, config)
+	saramaconfig, err := config.newKafkaConfig()
+	if err != nil {
+		log.Fatal("Error setting Sarama config: ", err.Error())
+	}
+	admin, err := sarama.NewClusterAdmin(bootstrapServers, saramaconfig)
 	if err != nil {
 		log.Fatal("Error while creating cluster admin: ", err.Error())
 	}
@@ -58,6 +61,7 @@ func (g *TopicGenerator) InitResources() error {
 	for topic := range topicslist {
 		topics = append(topics, topic)
 	}
+	admin.Close()
 	g.Resources = g.createResources(topics)
 	return nil
 }
