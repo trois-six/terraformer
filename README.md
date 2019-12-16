@@ -970,15 +970,13 @@ KAFKA_SASL_MECHANISM=[KAFKA_SASL_MECHANISM]
 KAFKA_SKIP_VERIFY=[KAFKA_SKIP_VERIFY]
 KAFKA_ENABLE_TLS=[KAFKA_ENABLE_TLS]
 KAFKA_TIMEOUT=[KAFKA_TIMEOUT]
-./terraformer import kafka -r topics,acls
+./terraformer import kafka -r topics
 ```
 
 List of supported New Relic resources:
 
 *   `topics`
     * `kafka_topic`
-*   `acls`
-    * `kafka_acl`
 
 ### Use with Logz.io
 
