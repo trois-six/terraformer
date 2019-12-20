@@ -23,6 +23,7 @@ A CLI tool that generates `tf`/`json` and `tfstate` files based on existing infr
         * [Azure](#use-with-azure)
         * [AliCloud](#use-with-alicloud)
     * Cloud
+        * [Cisco ACI](#use-with-aci)
         * [DigitalOcean](#use-with-digitalocean)
         * [Fastly](#use-with-fastly)
         * [Heroku](#use-with-heroku)
@@ -183,6 +184,7 @@ Links to download Terraform Providers:
     * Azure provider >1.35.0 - [here](https://releases.hashicorp.com/terraform-provider-azurerm/)
     * Alicloud provider >1.57.1 - [here](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * Cloud
+    * Cisco ACI >=0.1.2 - [here](https://releases.hashicorp.com/terraform-provider-aci/)
     * DigitalOcean provider >1.9.1 - [here](https://releases.hashicorp.com/terraform-provider-digitalocean/)
     * Fastly provider >0.11.0 - [here](https://releases.hashicorp.com/terraform-provider-fastly/)
     * Heroku provider >2.2.1 - [here](https://releases.hashicorp.com/terraform-provider-heroku/)
@@ -621,6 +623,24 @@ List of supported AliCloud resources:
   * `alicloud_vpc`
 * `vswitch`
   * `alicloud_vswitch`
+
+### Use with Cisco ACI
+
+Example:
+
+```
+ export ACI_URL=https://foo.bar.localdomain
+ export ACI_USERNAME=[ACI_USERNAME]
+ export ACI_PASSWORD=[ACI_PASSWORD]
+
+ terraformer import aci --resources=tenants,aps,vrfs,bds,epgs
+ terraformer import aci --resources=tenants,aps,vrfs,bds,epgs --filter=aci_tenant=name1:name2:name3
+```
+
+Here is the list of resources which are currently supported:
+
+- `tenants`
+  - `aci_tenant`
 
 ### Use with DigitalOcean
 
