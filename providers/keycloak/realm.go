@@ -129,6 +129,16 @@ func (g RealmGenerator) createLdapMapperResources(realmId, providerName string, 
 			mapperId = reflect.ValueOf(mapper).Interface().(*keycloak.LdapGroupMapper).Id
 			mapperName = reflect.ValueOf(mapper).Interface().(*keycloak.LdapGroupMapper).Name
 			mapperType = "group"
+		case "*keycloak.LdapHardcodedRoleMapper":
+			providerId = reflect.ValueOf(mapper).Interface().(*keycloak.LdapHardcodedRoleMapper).LdapUserFederationId
+			mapperId = reflect.ValueOf(mapper).Interface().(*keycloak.LdapHardcodedRoleMapper).Id
+			mapperName = reflect.ValueOf(mapper).Interface().(*keycloak.LdapHardcodedRoleMapper).Name
+			mapperType = "hardcoded_role"
+		case "*keycloak.LdapMsadLdsUserAccountControlMapper":
+			providerId = reflect.ValueOf(mapper).Interface().(*keycloak.LdapMsadLdsUserAccountControlMapper).LdapUserFederationId
+			mapperId = reflect.ValueOf(mapper).Interface().(*keycloak.LdapMsadLdsUserAccountControlMapper).Id
+			mapperName = reflect.ValueOf(mapper).Interface().(*keycloak.LdapMsadLdsUserAccountControlMapper).Name
+			mapperType = "msad_lds_user_account_control"
 		case "*keycloak.LdapMsadUserAccountControlMapper":
 			providerId = reflect.ValueOf(mapper).Interface().(*keycloak.LdapMsadUserAccountControlMapper).LdapUserFederationId
 			mapperId = reflect.ValueOf(mapper).Interface().(*keycloak.LdapMsadUserAccountControlMapper).Id
