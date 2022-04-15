@@ -345,8 +345,8 @@ github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.2.1 h1:wCzfVBrF1QRQFac
 github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.2.1/go.mod h1:6A0VfJAnYwhcXzt7KsixOdFlITEH5NFl4QeYxlZ5TtQ=
 github.com/aws/aws-sdk-go-v2/service/iot v1.2.0 h1:OTrzh5ew69Vd6x1zruCQ7B/dtcxwCQ5ohPJWwfkydKQ=
 github.com/aws/aws-sdk-go-v2/service/iot v1.2.0/go.mod h1:YzUfLvXlWGDMednNccsykrwSJmVGy0YeD+XwH8nRcIg=
-github.com/aws/aws-sdk-go-v2/service/kafka v1.14.0 h1:w0zxu2UMLOmxu2Blyi317fSGivjW0jdBuR9MIWXZdb4=
-github.com/aws/aws-sdk-go-v2/service/kafka v1.14.0/go.mod h1:mmTxASAqKgJc2pl9UQYdnq8ZW2qv2+Ri4N0xPvsojDM=
+github.com/aws/aws-sdk-go-v2/service/kafka v1.17.3 h1:IzbOeLG+DlmwySpvpzYloJbL6FMhH+m7jeefsut9bBU=
+github.com/aws/aws-sdk-go-v2/service/kafka v1.17.3/go.mod h1:I86iuo59X4E68E8ZQ/paAANpvTY7aXANya5wpCdKF2E=
 github.com/aws/aws-sdk-go-v2/service/kinesis v1.2.1 h1:MXy6AyLlbBYypXEsmK94l9yGjKKtxNaD/jFzVVOsnYQ=
 github.com/aws/aws-sdk-go-v2/service/kinesis v1.2.1/go.mod h1:ZdVDeEkxSDTPYDtb8kVxXzyOSBkAQVXCA9fanM45a/c=
 github.com/aws/aws-sdk-go-v2/service/kms v1.2.2 h1:9CJBrElBVX699f4ugbwsD2EPyHYWEdf9rGZZJwDzPSU=
