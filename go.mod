@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	cloud.google.com/go v0.100.2 // indirect
-	cloud.google.com/go/logging v1.1.2
+	cloud.google.com/go/logging v1.4.2
 	cloud.google.com/go/storage v1.14.0
 	github.com/Azure/azure-sdk-for-go v57.1.0+incompatible
 	github.com/Azure/azure-storage-blob-go v0.10.0
