@@ -62,7 +62,11 @@ func (p *KafkaProvider) InitService(serviceName string, verbose bool) error {
 
 func (p *KafkaProvider) GetSupportedService() map[string]terraformutils.ServiceGenerator {
 
-	return map[string]terraformutils.ServiceGenerator{}
+	return map[string]terraformutils.ServiceGenerator{
+		"acls":   &ACLGenerator{},
+		"quotas": &QuotaGenerator{},
+		"topics": &TopicGenerator{},
+	}
 }
 
 func (KafkaProvider) GetResourceConnections() map[string]map[string][]string {

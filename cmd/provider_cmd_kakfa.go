@@ -38,7 +38,7 @@ func newCmdKafkaImporter(options ImportOptions) *cobra.Command {
 	}
 
 	cmd.AddCommand(listCmd(newKafkaProvider()))
-	baseProviderFlags(cmd.PersistentFlags(), &options, "acl,quota,topic", "")
+	baseProviderFlags(cmd.PersistentFlags(), &options, "acls,quotas,topics", "")
 
 	return cmd
 }
