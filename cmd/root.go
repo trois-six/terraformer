@@ -79,6 +79,7 @@ func providerImporterSubcommands() []func(options ImportOptions) *cobra.Command 
 		newCmdHoneycombioImporter,
 		newCmdOpalImporter,
 		// Community
+		newCmdKafkaImporter,
 		newCmdKeycloakImporter,
 		newCmdLogzioImporter,
 		newCmdCommercetoolsImporter,
