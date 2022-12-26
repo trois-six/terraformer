@@ -3,9 +3,9 @@ module github.com/GoogleCloudPlatform/terraformer
 go 1.19
 
 require (
-	cloud.google.com/go v0.100.2 // indirect
+	cloud.google.com/go v0.102.0 // indirect
 	cloud.google.com/go/logging v1.1.2
-	cloud.google.com/go/storage v1.14.0
+	cloud.google.com/go/storage v1.22.1
 	github.com/Azure/azure-sdk-for-go v63.4.0+incompatible
 	github.com/Azure/azure-storage-blob-go v0.10.0
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
@@ -151,16 +151,16 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.34
 	github.com/vultr/govultr v1.1.1
-	github.com/xanzy/go-gitlab v0.50.2
+	github.com/xanzy/go-gitlab v0.77.0
 	github.com/yandex-cloud/go-genproto v0.0.0-20220314102905-1acaee8ca7eb
 	github.com/yandex-cloud/go-sdk v0.0.0-20220314105123-d0c2a928feb6
 	github.com/zclconf/go-cty v1.11.0
 	github.com/zorkian/go-datadog-api v2.30.0+incompatible
-	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
+	golang.org/x/oauth2 v0.0.0-20220722155238-128564f6959c
 	golang.org/x/text v0.4.0
 	gonum.org/v1/gonum v0.7.0
-	google.golang.org/api v0.70.0
-	google.golang.org/genproto v0.0.0-20220505152158-f39f71e6c8f3
+	google.golang.org/api v0.84.0
+	google.golang.org/genproto v0.0.0-20220616135557-88e70c0c3a90
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22 // indirect
 	k8s.io/apimachinery v0.24.2
 	k8s.io/client-go v0.24.2
@@ -247,7 +247,7 @@ require (
 	github.com/google/gofuzz v1.1.0 // indirect
 	github.com/google/jsonapi v1.0.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/googleapis/gax-go/v2 v2.1.1 // indirect
+	github.com/googleapis/gax-go/v2 v2.4.0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-getter v1.5.3 // indirect
@@ -312,13 +312,13 @@ require (
 	go.opencensus.io v0.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
-	golang.org/x/net v0.0.0-20220722155237-a158d28d115b // indirect
+	golang.org/x/net v0.0.0-20220805013720-a33c5aa5df48 // indirect
 	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
-	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
+	golang.org/x/sys v0.0.0-20220728004956-3c1f35247d10 // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
-	golang.org/x/time v0.0.0-20220609170525-579cf78fd858 // indirect
+	golang.org/x/time v0.0.0-20220722155302-e5dcc9cfc0b9 // indirect
 	golang.org/x/tools v0.1.12 // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	golang.org/x/xerrors v0.0.0-20220609144429-65e65417b02f // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/grpc v1.48.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
@@ -352,7 +352,7 @@ require (
 )
 
 require (
-	cloud.google.com/go/compute v1.3.0 // indirect
+	cloud.google.com/go/compute v1.7.0 // indirect
 	github.com/DataDog/zstd v1.5.0 // indirect
 	github.com/Myra-Security-GmbH/signature v1.0.0 // indirect
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
@@ -364,6 +364,8 @@ require (
 	github.com/go-openapi/swag v0.19.14 // indirect
 	github.com/golang-jwt/jwt/v4 v4.3.0 // indirect
 	github.com/google/gnostic v0.5.7-v3refs // indirect
+	github.com/googleapis/enterprise-certificate-proxy v0.0.0-20220520183353-fd19c99a87aa // indirect
+	github.com/googleapis/go-type-adapters v1.0.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.7.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
