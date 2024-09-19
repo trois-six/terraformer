@@ -16,6 +16,7 @@ package kafka
 
 import (
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
+	"github.com/IBM/sarama"
 )
 
 type QuotaGenerator struct {
@@ -38,7 +39,16 @@ func (q QuotaGenerator) createResources(quotas Quotas) []terraformutils.Resource
 }
 
 func (q *QuotaGenerator) InitResources() error {
-	var quotas Quotas
+	broker, err := q.client.Controller()
+	if err != nil {
+		return err
+	}
+
+	quotas, err = broker.DescribeClientQuotas(sarama.NewMetadataRequest())
+	if err != nil {
+		return err
+	}
+
 	q.Resources = q.createResources(quotas)
 	return nil
 }
